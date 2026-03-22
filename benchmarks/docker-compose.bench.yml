@@ -1,0 +1,44 @@
+services:
+  # Target 1: DVWA (Damn Vulnerable Web App)
+  # PHP/MySQL based target — amd64-only image; platform forces Rosetta/QEMU
+  # emulation on arm64 hosts (Apple Silicon, Linux arm64).
+  dvwa:
+    image: vulnerables/web-dvwa
+    platform: linux/amd64
+    ports:
+      - "8081:80"
+    environment:
+      - MYSQL_DATABASE=dvwa
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=pass
+      - MYSQL_RANDOM_ROOT_PASSWORD=yes
+    restart: unless-stopped
+
+  # Target 2: OWASP Juice Shop
+  # Node.js/Angular target — multi-arch image (amd64 + arm64), no platform
+  # override needed; Docker picks the native variant automatically.
+  juiceshop:
+    image: bkimminich/juice-shop:latest
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+  # Target 3: OWASP Benchmark
+  # Java/Maven/Tomcat benchmark (2,740+ test cases) — amd64-only image.
+  # The image ships with CMD=["/bin/bash"] and no entrypoint, so we invoke
+  # the bundled start script explicitly.
+  # Access: https://localhost:8443/benchmark/ (self-signed cert)
+  owasp:
+    image: owasp/benchmark:latest
+    platform: linux/amd64
+    working_dir: /owasp/BenchmarkJava
+    command: ["/bin/sh", "runRemoteAccessibleBenchmark.sh", "--quiet"]
+    ports:
+      - "8443:8443"
+    restart: unless-stopped
+    healthcheck:
+      test: ["CMD", "curl", "-f", "-k", "https://localhost:8443/benchmark/"]
+      interval: 30s
+      timeout: 10s
+      retries: 10
+      start_period: 180s

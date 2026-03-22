@@ -1,0 +1,85 @@
+{
+  "benchmark": "DVWA",
+  "version": "latest",
+  "docker_image": "vulnerables/web-dvwa",
+  "date_created": "2026-02-09",
+  "total_vulnerabilities": 6,
+  "vulnerabilities": [
+    {
+      "id": "dvwa_xss_r_low",
+      "type": "reflected_xss",
+      "module": "xss_r",
+      "difficulty": "low",
+      "url_pattern": "/vulnerabilities/xss_r/?name=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "file": "vulnerabilities/xss_r/source/low.php",
+      "description": "No sanitization on reflected input"
+    },
+    {
+      "id": "dvwa_xss_r_medium",
+      "type": "reflected_xss",
+      "module": "xss_r",
+      "difficulty": "medium",
+      "url_pattern": "/vulnerabilities/xss_r/?name=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "file": "vulnerabilities/xss_r/source/medium.php",
+      "description": "Basic str_replace sanitization (bypassable)"
+    },
+    {
+      "id": "dvwa_xss_s_low",
+      "type": "stored_xss",
+      "module": "xss_s",
+      "difficulty": "low",
+      "url_pattern": "/vulnerabilities/xss_s/",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "file": "vulnerabilities/xss_s/source/low.php",
+      "description": "Stored in database without sanitization"
+    },
+    {
+      "id": "dvwa_xss_s_medium",
+      "type": "stored_xss",
+      "module": "xss_s",
+      "difficulty": "medium",
+      "url_pattern": "/vulnerabilities/xss_s/",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "file": "vulnerabilities/xss_s/source/medium.php",
+      "description": "Stored with weak sanitization"
+    },
+    {
+      "id": "dvwa_xss_d_low",
+      "type": "dom_xss",
+      "module": "xss_d",
+      "difficulty": "low",
+      "url_pattern": "/vulnerabilities/xss_d/?default=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": false,
+      "file": "vulnerabilities/xss_d/source/low.php",
+      "description": "DOM-based XSS via document.write"
+    },
+    {
+      "id": "dvwa_xss_d_medium",
+      "type": "dom_xss",
+      "module": "xss_d",
+      "difficulty": "medium",
+      "url_pattern": "/vulnerabilities/xss_d/?default=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": false,
+      "file": "vulnerabilities/xss_d/source/medium.php",
+      "description": "DOM-based XSS with weak filtering"
+    }
+  ],
+  "notes": [
+    "High and Impossible difficulties are not included as they are not detectable by automated tools",
+    "DOM-based XSS may be hard to detect via blackbox without JavaScript execution"
+  ]
+}

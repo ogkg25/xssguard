@@ -1,0 +1,79 @@
+[build-system]
+requires = ["setuptools>=45", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "xssguard"
+version = "1.0.0"
+description = "A dual-approach framework for Cross-Site Scripting detection and prevention"
+readme = "README.md"
+requires-python = ">=3.10"
+license = {text = "MIT"}
+authors = [
+    {name = "Krushna Gaurkar", email = "krushnagaurkar@proton.me"}
+]
+keywords = ["security", "xss", "vulnerability", "scanner", "testing"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Information Technology",
+    "Topic :: Security",
+    "Topic :: Software Development :: Testing",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+]
+
+dependencies = [
+    "requests>=2.28.0",
+    "beautifulsoup4>=4.11.0",
+    "lxml>=4.9.0",
+    "flask>=2.3.0",
+    "playwright>=1.30.0",
+    "esprima>=4.0.0",
+    "click>=8.1.0",
+    "rich>=13.0.0",
+    "jinja2>=3.1.0",
+    "pyyaml>=6.0",
+    "python-dotenv>=1.0.0",
+    "bleach>=6.1.0",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.2.0",
+    "pytest-cov>=4.0.0",
+    "black>=23.0.0",
+    "mypy>=1.0.0",
+]
+
+[project.scripts]
+xssguard = "xssguard.cli:cli"
+
+[project.urls]
+Homepage = "https://github.com/ogkg25/xssguard"
+Documentation = "https://github.com/ogkg25/xssguard/blob/main/docs"
+Repository = "https://github.com/ogkg25/xssguard"
+"Bug Tracker" = "https://github.com/ogkg25/xssguard/issues"
+
+[tool.black]
+line-length = 100
+target-version = ['py310', 'py311', 'py312']
+
+[tool.mypy]
+python_version = "3.10"
+warn_return_any = true
+warn_unused_configs = true
+disallow_untyped_defs = false
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["xssguard*", "whitebox_scanner*", "blackbox_scanner*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_functions = ["test_*"]
+addopts = "-v --cov=whitebox_scanner --cov=blackbox_scanner --cov=xssguard"

@@ -1,0 +1,1 @@
+{"benchmark":"Juice Shop Matrix","version":"1.0","timestamp":"baseline","verify_enabled":false,"summary":{"total_cases":0,"skipped":0,"errors":0,"true_positives":0,"false_positives":0,"false_negatives":0,"true_negatives":0,"precision":0,"recall":0,"f1_score":0},"by_xss_type":{},"by_context":{},"matrix":{}}

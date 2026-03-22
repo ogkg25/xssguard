@@ -1,0 +1,50 @@
+{
+  "summary": {
+    "total": 5,
+    "counts": {
+      "High": 5
+    }
+  },
+  "vulnerabilities": [
+    {
+      "url": "http://127.0.0.1:5555/search?q=test",
+      "parameter": "q",
+      "payload": "<script>alert('XSS')</script>",
+      "type": "Reflected XSS",
+      "confidence": "High",
+      "context": "html_body"
+    },
+    {
+      "url": "http://127.0.0.1:5555/comments",
+      "parameter": "comment",
+      "payload": "<script>alert('XSS')</script>",
+      "type": "Stored XSS",
+      "confidence": "High",
+      "context": "html_body"
+    },
+    {
+      "url": "http://127.0.0.1:5555/comments",
+      "parameter": "Referer",
+      "payload": "<script>alert('XSS')</script>",
+      "type": "Header XSS",
+      "confidence": "High",
+      "context": "html_body"
+    },
+    {
+      "url": "http://127.0.0.1:5555/comments",
+      "parameter": "User-Agent",
+      "payload": "<script>alert('XSS')</script>",
+      "type": "Header XSS",
+      "confidence": "High",
+      "context": "html_body"
+    },
+    {
+      "url": "http://127.0.0.1:5555/comments",
+      "parameter": "X-Forwarded-For",
+      "payload": "<script>alert('XSS')</script>",
+      "type": "Header XSS",
+      "confidence": "High",
+      "context": "html_body"
+    }
+  ]
+}

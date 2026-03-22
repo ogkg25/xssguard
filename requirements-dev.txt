@@ -1,0 +1,8 @@
+# XSSGuard - Development dependencies
+# Install with: pip install -r requirements.txt -r requirements-dev.txt
+# Or use: pip install -e ".[dev]" for editable install with dev extras
+
+pytest>=7.2.0
+pytest-cov>=4.0.0
+black>=23.0.0
+mypy>=1.0.0

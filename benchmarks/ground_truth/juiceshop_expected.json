@@ -1,0 +1,119 @@
+{
+  "benchmark": "OWASP Juice Shop",
+  "version": "v14.0.0",
+  "docker_image": "bkimminich/juice-shop:v14.0.0",
+  "date_created": "2026-02-09",
+  "total_vulnerabilities": 8,
+  "notes": [
+    "Juice Shop is a modern SPA (Single Page Application) with Angular",
+    "Many vulnerabilities require specific user interactions",
+    "Hash-based routing (#/) may require headless browser",
+    "This list focuses on detectable XSS vulnerabilities"
+  ],
+  "vulnerabilities": [
+    {
+      "id": "juiceshop_dom_xss",
+      "type": "dom_xss",
+      "challenge": "DOM XSS",
+      "difficulty": 1,
+      "url_pattern": "/#/search?q=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "description": "DOM-based XSS in search functionality",
+      "hint": "Payload: <iframe src=\"javascript:alert(`xss`)\">"
+    },
+    {
+      "id": "juiceshop_reflected_xss",
+      "type": "reflected_xss",
+      "challenge": "Reflected XSS",
+      "difficulty": 1,
+      "url_pattern": "/#/track-result?id=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "description": "Reflected XSS in order tracking",
+      "hint": "Payload: <iframe src=\"javascript:alert(`xss`)\">"
+    },
+    {
+      "id": "juiceshop_bonus_payload",
+      "type": "reflected_xss",
+      "challenge": "Bonus Payload",
+      "difficulty": 1,
+      "url_pattern": "/#/track-result?id=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "description": "Alternative XSS payload",
+      "hint": "Payload: <img src=x onerror=alert(1)>"
+    },
+    {
+      "id": "juiceshop_api_only_xss",
+      "type": "reflected_xss",
+      "challenge": "API-only XSS",
+      "difficulty": 2,
+      "url_pattern": "/api/Users/<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": false,
+      "detectable_blackbox": true,
+      "description": "XSS in API endpoint (no browser rendering)",
+      "hint": "Detectable only if scanner checks API responses"
+    },
+    {
+      "id": "juiceshop_video_xss",
+      "type": "dom_xss",
+      "challenge": "Video XSS",
+      "difficulty": 6,
+      "url_pattern": "/#/profile",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": false,
+      "description": "XSS in video subtitle upload",
+      "hint": "Requires authenticated file upload"
+    },
+    {
+      "id": "juiceshop_client_side_xss",
+      "type": "dom_xss",
+      "challenge": "Client-side XSS Protection",
+      "difficulty": 3,
+      "url_pattern": "/#/search?q=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "description": "Bypass client-side XSS filter",
+      "hint": "Angular sanitization bypass needed"
+    },
+    {
+      "id": "juiceshop_server_side_xss",
+      "type": "reflected_xss",
+      "challenge": "Server-side XSS Protection",
+      "difficulty": 4,
+      "url_pattern": "/api/Products/search?q=<payload>",
+      "cwe": "CWE-79",
+      "detectable_whitebox": true,
+      "detectable_blackbox": true,
+      "description": "Bypass server-side XSS filter",
+      "hint": "Needs specific payload encoding"
+    },
+    {
+      "id": "juiceshop_http_header_xss",
+      "type": "reflected_xss",
+      "challenge": "HTTP-Header XSS",
+      "difficulty": 4,
+      "url_pattern": "/api/*",
+      "cwe": "CWE-79",
+      "detectable_whitebox": false,
+      "detectable_blackbox": true,
+      "description": "XSS via HTTP headers (True-Client-IP)",
+      "hint": "Requires custom header injection"
+    }
+  ],
+  "detectable_summary": {
+    "total": 8,
+    "whitebox_detectable": 6,
+    "blackbox_detectable": 6,
+    "easy_difficulty": 3,
+    "medium_difficulty": 3,
+    "hard_difficulty": 2
+  }
+}

@@ -1,0 +1,109 @@
+# XSSGuard Configuration
+
+# Global settings
+global:
+  output_format: "console"  # console, json, html
+  verbosity: "normal"       # quiet, normal, verbose
+  color: true
+
+# White-box scanner configuration
+whitebox:
+  # File extensions to scan
+  extensions:
+    - ".js"
+    - ".jsx"
+    - ".ts"
+    - ".tsx"
+    - ".py"
+    - ".html"
+    - ".vue"
+    - ".php"
+  
+  # Directories to exclude
+  exclude_dirs:
+    - "node_modules"
+    - "__pycache__"
+    - ".git"
+    - ".svn"
+    - "venv"
+    - "env"
+    - "dist"
+    - "build"
+    - "vendor"
+  
+  # Minimum severity to report
+  min_severity: "low"  # low, medium, high, critical
+  
+  # Enable framework-specific detection
+  frameworks:
+    react: true
+    vue: true
+    angular: true
+
+# Black-box scanner configuration  
+blackbox:
+  # Request settings
+  timeout: 10           # seconds
+  max_redirects: 5
+  verify_ssl: false     # Set to true in production
+  
+  # Crawling settings
+  crawl:
+    enabled: true
+    max_depth: 3
+    max_pages: 100
+    same_domain_only: true
+  
+  # Payload settings
+  payloads:
+    use_builtin: true
+    max_per_param: 10
+  
+  # Verification settings
+  verification:
+    headless: false      # Requires playwright
+    browser: "chromium"  # chromium, firefox, webkit
+    wait_time: 2000      # milliseconds
+
+# Reporting settings
+reporting:
+  # Include in report
+  include:
+    code_snippets: true
+    remediation: true
+    request_details: true
+  
+  # CI/CD settings
+  ci:
+    fail_on_findings: true
+    fail_severity: "high"  # Minimum severity to fail build
+
+# Sanitization settings
+sanitizer:
+  policy:
+    tags:
+      - "b"
+      - "i"
+      - "u"
+      - "em"
+      - "strong"
+      - "p"
+      - "br"
+      - "ul"
+      - "ol"
+      - "li"
+      - "a"
+      - "code"
+      - "pre"
+    attributes:
+      a:
+        - "href"
+        - "title"
+        - "rel"
+        - "target"
+    protocols:
+      - "http"
+      - "https"
+      - "mailto"
+    strip: true
+    strip_comments: true

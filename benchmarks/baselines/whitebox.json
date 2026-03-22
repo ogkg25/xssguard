@@ -1,0 +1,81 @@
+{
+  "summary": {
+    "total": 7,
+    "counts": {
+      "High": 6,
+      "Critical": 1
+    }
+  },
+  "findings": [
+    {
+      "file": "benchmarks/smoke_targets/react_xss.jsx",
+      "line": 9,
+      "content": "<div dangerouslySetInnerHTML={{ __html: bio }} />",
+      "signature": "react_dangerous_html",
+      "severity": "High",
+      "description": "dangerouslySetInnerHTML bypasses React's XSS protection",
+      "remediation": "Sanitize HTML with DOMPurify before rendering",
+      "confidence": "Medium"
+    },
+    {
+      "file": "benchmarks/smoke_targets/react_xss.jsx",
+      "line": 9,
+      "content": "<div dangerouslySetInnerHTML={{ __html: bio }} />",
+      "signature": "innerHTML_assignment",
+      "severity": "High",
+      "description": "Direct innerHTML assignment can lead to XSS",
+      "remediation": "Use textContent or proper sanitization with DOMPurify",
+      "confidence": "Medium"
+    },
+    {
+      "file": "benchmarks/smoke_targets/dom_xss.js",
+      "line": 6,
+      "content": "output.innerHTML = msg;",
+      "signature": "innerHTML_assignment",
+      "severity": "High",
+      "description": "Direct innerHTML assignment can lead to XSS",
+      "remediation": "Use textContent or proper sanitization with DOMPurify",
+      "confidence": "Medium"
+    },
+    {
+      "file": "benchmarks/smoke_targets/dom_xss.js",
+      "line": 9,
+      "content": "document.write(\"Debug: \" + msg);",
+      "signature": "document_write",
+      "severity": "High",
+      "description": "document.write can execute arbitrary scripts",
+      "remediation": "Use DOM manipulation methods instead",
+      "confidence": "Medium"
+    },
+    {
+      "file": "benchmarks/smoke_targets/angular_xss.ts",
+      "line": 13,
+      "content": "this.dangerousUrl = this.sanitizer.bypassSecurityTrustHtml(",
+      "signature": "angular_bypass_security",
+      "severity": "High",
+      "description": "Angular security bypass methods can introduce XSS",
+      "remediation": "Avoid bypassing Angular's built-in sanitization",
+      "confidence": "Medium"
+    },
+    {
+      "file": "benchmarks/smoke_targets/matrix_server.py",
+      "line": 210,
+      "content": "document.getElementById('out').innerHTML = q;",
+      "signature": "innerHTML_assignment",
+      "severity": "High",
+      "description": "Direct innerHTML assignment can lead to XSS",
+      "remediation": "Use textContent or proper sanitization with DOMPurify",
+      "confidence": "Medium"
+    },
+    {
+      "file": "benchmarks/smoke_targets/matrix_server.py",
+      "line": 253,
+      "content": "eval(\"var msg = '\" + q + \"';\");",
+      "signature": "eval_usage",
+      "severity": "Critical",
+      "description": "eval() executes arbitrary code",
+      "remediation": "Avoid eval(); use JSON.parse() for data",
+      "confidence": "Medium"
+    }
+  ]
+}

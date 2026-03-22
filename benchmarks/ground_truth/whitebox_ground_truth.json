@@ -1,0 +1,36 @@
+{
+  "benchmark": "Whitebox Smoke Targets",
+  "version": "1.0",
+  "findings": [
+    {
+      "file": "benchmarks/smoke_targets/dom_xss.js",
+      "line": 6,
+      "signature": "innerHTML_assignment"
+    },
+    {
+      "file": "benchmarks/smoke_targets/dom_xss.js",
+      "line": 9,
+      "signature": "document_write"
+    },
+    {
+      "file": "benchmarks/smoke_targets/dom_xss.js",
+      "line": 16,
+      "signature": "outerHTML_assignment"
+    },
+    {
+      "file": "benchmarks/smoke_targets/react_xss.jsx",
+      "line": 9,
+      "signature": "react_dangerous_html"
+    },
+    {
+      "file": "benchmarks/smoke_targets/react_xss.jsx",
+      "line": 9,
+      "signature": "innerHTML_assignment"
+    },
+    {
+      "file": "benchmarks/smoke_targets/angular_xss.ts",
+      "line": 13,
+      "signature": "angular_bypass_security"
+    }
+  ]
+}
